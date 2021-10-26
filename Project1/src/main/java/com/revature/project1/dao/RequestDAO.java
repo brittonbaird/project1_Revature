@@ -12,6 +12,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.revature.project1.model.Request;
+import com.revature.project1.util.HibernateUtil;
 
 
 public class RequestDAO {
@@ -22,11 +23,7 @@ public class RequestDAO {
 	}
 	
 	public void saveRequest(Request request) {
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
 		
 		session.save(request);
@@ -35,11 +32,7 @@ public class RequestDAO {
 	}
 
 	public List<Request> getRequests() {
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(Request.class).setFetchMode("request", FetchMode.JOIN);
@@ -50,11 +43,7 @@ public class RequestDAO {
 	}
 	
 	public void updateRequest(Request request) {
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
 		
 		session.update(request);

@@ -1,5 +1,6 @@
 package com.revature.project1.model;
 
+
 public class Request {
 	private int id;
 	private int employeeId;
@@ -11,6 +12,18 @@ public class Request {
 		super();
 	}
 	
+	
+	
+	public Request(int employeeId, String reason, String status, double amount) {
+		super();
+		this.employeeId = employeeId;
+		this.reason = reason;
+		this.status = status;
+		this.amount = amount;
+	}
+
+
+
 	public Request(int id, int employeeId, String reason, String status, double amount) {
 		super();
 		this.id = id;

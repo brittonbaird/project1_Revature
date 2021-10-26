@@ -13,6 +13,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.revature.project1.model.Employee;
+import com.revature.project1.util.HibernateUtil;
 
 public class EmployeeDAO {
 	
@@ -22,11 +23,7 @@ public class EmployeeDAO {
 	}
 
 	public List<Employee> getEmployees() {
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
 		
 		Criteria criteria = session.createCriteria(Employee.class).setFetchMode("employee", FetchMode.JOIN);
@@ -38,16 +35,28 @@ public class EmployeeDAO {
 	
 	public Employee getEmployee(String email) {
 		Employee employee = new Employee();
-		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();
-		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
-
-		SessionFactory factory = meta.getSessionFactoryBuilder().build();
-		Session session = factory.openSession();
+		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
-		employee = session.createQuery("from Employee e where e.email = :email", Employee.class).setParameter("email", email).getSingleResult();
+		
+		try {
+			employee = session.createQuery("from Employee e where e.email = :email", Employee.class).setParameter("email", email).getSingleResult();
+		} catch (Exception e) {
+			// TODO: handle exception
+			employee = null;
+		}
+		
 		
 		session.getTransaction().commit();
 		
 		return employee;
+	}
+	
+	public void saveEmployee(Employee employee) {
+		Session session = HibernateUtil.getFactory().openSession();
+		session.beginTransaction();
+		
+		session.save(employee);
+		
+		session.getTransaction().commit();
 	}
 }
