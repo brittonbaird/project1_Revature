@@ -17,6 +17,11 @@ public class RequestService {
 		return requests;
 	}
 	
+	public static List<Request> getRequestsByEmployeeId(int id) {
+		List<Request> requests = RequestDAO.instance().getRequestsByEmployeeId(id);
+		return requests;
+	}
+	
 	public static Request getRequest(String id) {
 		Request request = RequestDAO.instance().getRequest(Integer.parseInt(id));
 		return request;

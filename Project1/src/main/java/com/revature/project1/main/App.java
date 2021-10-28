@@ -18,13 +18,14 @@ public class App {
         }).start(7777);
 
 
-		app.get("/login/{email}", EmployeeController.fetchByEmail);
+		app.get("/employees/{email}", EmployeeController.fetchByEmail);
 		app.post("/employees", EmployeeController.saveEmployee);
 		app.get("/employees", EmployeeController.fetchAllEmployees);
 		
 		app.get("/requests/{id}", RequestController.fetchById);
+		app.get("/requests/employee/{id}", RequestController.fetchAllByEmployeeId);
 		app.get("/requests", RequestController.fetchAllRequests);
 		app.post("/requests", RequestController.saveRequest);
-		//make request update app.post
+		app.put("/requests", RequestController.updateRequest);
 	}
 }

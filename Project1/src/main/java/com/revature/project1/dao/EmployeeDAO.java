@@ -31,6 +31,7 @@ public class EmployeeDAO {
 				
 		List<Employee> employees = session.createQuery(query).getResultList();
 		session.getTransaction().commit();
+		session.close();
 		
 		return employees;
 	}
@@ -48,7 +49,7 @@ public class EmployeeDAO {
 		
 		
 		session.getTransaction().commit();
-		
+		session.close();
 		return employee;
 	}
 	
@@ -59,5 +60,6 @@ public class EmployeeDAO {
 		session.save(employee);
 		
 		session.getTransaction().commit();
+		session.close();
 	}
 }

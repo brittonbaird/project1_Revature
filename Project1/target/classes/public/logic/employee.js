@@ -8,19 +8,48 @@ async function populateEmployeeTable() {
 
 	for (let index = 0; index < info.length; index++) {
 		const element = info[index];
-		if(sessionStorage.getItem('id') == element.employeeId) {
-		tableBody.innerHTML += `
+		if (sessionStorage.getItem('id') == element.employeeId) {
+			if (element.status == "Approved") {
+				tableBody.innerHTML += `
             <tr>
                 	<td class="text-center">${element.employeeId}</td>
                 	<td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
                 	<td class="text-center">${element.amount}</td>
                 	<td class="text-center">  
-                    	<button type="button" class="btn btn-primary">
+                    	<button style=background-color:green type="button" class="btn btn-primary">
                        	${element.status}
                     	</button>
                 	</td>
             	</tr>
         	`;
+			} else if (element.status == "Denied") {
+				tableBody.innerHTML += `
+            <tr>
+                	<td class="text-center">${element.employeeId}</td>
+                	<td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
+                	<td class="text-center">${element.amount}</td>
+                	<td class="text-center">  
+                    	<button style=background-color:red type="button" class="btn btn-primary">
+                       	${element.status}
+                    	</button>
+                	</td>
+            	</tr>
+        	`;
+			} else {
+				tableBody.innerHTML += `
+            <tr>
+                	<td class="text-center">${element.employeeId}</td>
+                	<td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
+                	<td class="text-center">${element.amount}</td>
+                	<td class="text-center">  
+                    	<button style=background-color: type="button" class="btn btn-primary">
+                       	${element.status}
+                    	</button>
+                	</td>
+            	</tr>
+        	`;
+			}
+			;
 		}
 	}
 }
@@ -44,14 +73,14 @@ async function uploadNewReimbursement() {
 		method: 'POST',
 		body: JSON.stringify(params)
 	};
-		
-	fetch('http://localhost:7777/requests', options)
-		then(response => response.json())
-			then(response => {
-			// Do something with response.
-			});
 
-		
+	fetch('http://localhost:7777/requests', options)
+	then(response => response.json())
+	then(response => {
+		// Do something with response.
+	});
+
+
 	location.reload();
-	
+
 }

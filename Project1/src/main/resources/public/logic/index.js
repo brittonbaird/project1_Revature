@@ -5,7 +5,7 @@ async function validate() {
 	var email = document.getElementById("email").value;
 	var password = document.getElementById("password").value;
 
-	fetch(url + "/login/" + email)
+	fetch(url + "/employees/" + email)
 		.then(function(res) {
 			res.json()
 				.then(function(data) {

@@ -26,6 +26,8 @@ public class RequestDAO {
 		session.save(request);
 		
 		session.getTransaction().commit();
+		
+		session.close();
 	}
 
 	public List<Request> getRequests() {
@@ -39,7 +41,23 @@ public class RequestDAO {
 		List<Request> requests = session.createQuery(query).getResultList();
 				
 		session.getTransaction().commit();
+		session.close();
+		return requests;
+	}
+	
+	public List<Request> getRequestsByEmployeeId(int id) {
+		Session session = HibernateUtil.getFactory().openSession();
+		session.beginTransaction();
+		List<Request> requests;
+		try {
+			requests = session.createQuery("from Request where employeeid = :id", Request.class).setParameter("id", id).getResultList();
+		} catch (Exception e) {
+			requests = null;
+		}
 		
+		
+		session.getTransaction().commit();
+		session.close();
 		return requests;
 	}
 	
@@ -56,7 +74,7 @@ public class RequestDAO {
 		
 		
 		session.getTransaction().commit();
-		
+		session.close();
 		return request;
 	}
 	
@@ -67,6 +85,7 @@ public class RequestDAO {
 		session.update(request);
 		
 		session.getTransaction().commit();
+		session.close();
 	}
 	
 }

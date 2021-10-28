@@ -13,6 +13,11 @@ public class RequestController {
 		ctx.json(requests);
 	};
 	
+	public static Handler  fetchAllByEmployeeId = ctx ->{
+		Iterable<Request> requests = RequestService.getRequestsByEmployeeId(Integer.parseInt(ctx.pathParam("id")));
+		ctx.json(requests);
+	};
+	
 	public static Handler fetchById = ctx -> {
 		Request request = RequestService.getRequest(ctx.pathParam("id"));
 		if (request == null) {

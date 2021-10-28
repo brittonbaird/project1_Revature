@@ -20,29 +20,53 @@ async function populateManagerTable() {
 
 	for (let index = 0; index < info.length; index++) {
 		const element = info[index];
-
-		tableBody.innerHTML += `
+		if (element.status == "Approved") {
+			tableBody.innerHTML += `
             <tr>
                 <td class="text-center">${element.employeeId}</td>
                 <td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
                 <td class="text-center">${element.amount}</td>
                 <td class="text-center">  
                     <!-- Button to Open the Modal -->
-                    <button type="button" onclick=populateModalReimbursementDetails(${element.id}) class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <button id="button" style="background-color:green" type="button" onclick=populateModalReimbursementDetails(${element.id}) class="btn btn-primary" data-toggle="modal" data-target="#myModal">
                         ${element.status}
                     </button>
                 </td>
             </tr>
-        `;
+        `} else if (element.status == "Denied") {
+			tableBody.innerHTML += `
+            <tr>
+                <td class="text-center">${element.employeeId}</td>
+                <td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
+                <td class="text-center">${element.amount}</td>
+                <td class="text-center">  
+                    <!-- Button to Open the Modal -->
+                    <button id="button" style="background-color:red" type="button" onclick=populateModalReimbursementDetails(${element.id}) class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        ${element.status}
+                    </button>
+                </td>
+            </tr>
+        `
+		} else {
+			tableBody.innerHTML += `
+            <tr>
+                <td class="text-center">${element.employeeId}</td>
+                <td class="text-center" style="word-wrap: break-word;">${element.reason}</td>
+                <td class="text-center">${element.amount}</td>
+                <td class="text-center">  
+                    <!-- Button to Open the Modal -->
+                    <button id="button" style="background-color:" type="button" onclick=populateModalReimbursementDetails(${element.id}) class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        ${element.status}
+                    </button>
+                </td>
+            </tr>
+        `
+		};
 	}
 }
 
 
 
-async function populateEmployeeModal(rid) {
-	populateModalReimbursementDetails(rid);
-	return;
-}
 
 async function fetchReimbursementById(rid) {
 	let response = await fetch(`http://localhost:7777/requests/${rid}`);
@@ -61,7 +85,7 @@ async function populateModalReimbursementDetails(rid) {
 
 	let response = await fetch(`http://localhost:7777/requests/${rid}`);
 	let info = await response.json();
-	
+
 	console.log(info.reason);
 	modalAmount.innerHTML = `$ ${info.amount}`;
 	modalReason.innerHTML = ` ${info.reason}`;
@@ -87,22 +111,20 @@ async function statusUpdate(status) {
 	myHeaders.append("Content-Type", "application/json");
 
 	let rData = await fetchReimbursementById(reimbursementId);
-	rData.manager_note = managerNote;
 	if (status === "approved")
-		rData.status = 1;
+		rData.status = "Approved";
 	else
-		rData.status = 0;
+		rData.status = "Denied";
 	let raw = JSON.stringify(rData);
 
 	let requestOptions =
 	{
-		method: 'POST',
+		method: 'PUT',
 		headers: myHeaders,
 		body: raw,
-		redirect: 'follow'
 	};
 
-	await fetch("http://ec2-3-16-56-22.us-east-2.compute.amazonaws.com:7070/reimbursement", requestOptions)
+	await fetch("http://localhost:7777/requests", requestOptions)
 
 	location.reload();
 }
