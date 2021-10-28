@@ -2,14 +2,11 @@ package com.revature.project1.dao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import com.revature.project1.model.Request;
 import com.revature.project1.util.HibernateUtil;
@@ -34,12 +31,33 @@ public class RequestDAO {
 	public List<Request> getRequests() {
 		Session session = HibernateUtil.getFactory().openSession();
 		session.beginTransaction();
+		CriteriaBuilder builder = session.getCriteriaBuilder();
+		CriteriaQuery<Request> query = builder.createQuery(Request.class);
+		Root<Request> root = query.from(Request.class);
+		query.select(root);
+				
+		List<Request> requests = session.createQuery(query).getResultList();
+				
+		session.getTransaction().commit();
 		
-		Criteria criteria = session.createCriteria(Request.class).setFetchMode("request", FetchMode.JOIN);
+		return requests;
+	}
+	
+	public Request getRequest(int id) {
+		Request request = new Request();
+		Session session = HibernateUtil.getFactory().openSession();
+		session.beginTransaction();
+		
+		try {
+			request = session.createQuery("from Request r where r.id = :id", Request.class).setParameter("id", id).getSingleResult();
+		} catch (Exception e) {
+			request = null;
+		}
+		
 		
 		session.getTransaction().commit();
 		
-		return criteria.list();
+		return request;
 	}
 	
 	public void updateRequest(Request request) {

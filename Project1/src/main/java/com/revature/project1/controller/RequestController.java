@@ -2,7 +2,6 @@ package com.revature.project1.controller;
 
 
 import com.revature.project1.model.Request;
-
 import com.revature.project1.service.RequestService;
 
 import io.javalin.http.Handler;
@@ -12,6 +11,15 @@ public class RequestController {
 	public static Handler fetchAllRequests = ctx -> {
 		Iterable<Request> requests = RequestService.getRequests();
 		ctx.json(requests);
+	};
+	
+	public static Handler fetchById = ctx -> {
+		Request request = RequestService.getRequest(ctx.pathParam("id"));
+		if (request == null) {
+			ctx.html("Not Found");
+		} else {
+			ctx.json(request);
+		}
 	};
 
 	public static Handler saveRequest = ctx -> {

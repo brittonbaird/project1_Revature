@@ -6,7 +6,7 @@
 <hibernate-mapping>
 	<class name="com.revature.project1.model.Request" table="request">
 		<id name="id">
-			<generator class="identity"></generator>
+			<generator class="increment"></generator>
 		</id>
 
 		<property name="employeeId"></property>

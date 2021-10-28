@@ -17,18 +17,14 @@ public class App {
             config.addStaticFiles("/public", Location.CLASSPATH);
         }).start(7777);
 
-//		app.get("/hello", ctx -> ctx.html("<h1>Welcome to Javalin</h1>"));
-
-//    	app.get("/users", EmployeeController.fetchAllUsernames);
-//		app.get("/users/{id}", EmployeeController.fetchById);
-//		app.post("/users", EmployeeController.addUser);
 
 		app.get("/login/{email}", EmployeeController.fetchByEmail);
 		app.post("/employees", EmployeeController.saveEmployee);
 		app.get("/employees", EmployeeController.fetchAllEmployees);
+		
+		app.get("/requests/{id}", RequestController.fetchById);
 		app.get("/requests", RequestController.fetchAllRequests);
 		app.post("/requests", RequestController.saveRequest);
-//		app.get("/statistics", null);
-//		app.post("/request", null);
+		//make request update app.post
 	}
 }
