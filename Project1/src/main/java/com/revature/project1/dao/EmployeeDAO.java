@@ -62,4 +62,14 @@ public class EmployeeDAO {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public void deleteEmployee(Employee employee) {
+		Session session = HibernateUtil.getFactory().openSession();
+		session.beginTransaction();
+		
+		session.delete(employee);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
 }

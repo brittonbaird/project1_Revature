@@ -11,23 +11,39 @@ public class DAOtests {
 
 	@Test
 	public void testSaveRequest() {
-		Request request = new Request(2, "printer", "pending", 50.00);
+		Request request = new Request(100, 3, "printer", "pending", 50.00);
 		RequestDAO.instance().saveRequest(request);
-		assertTrue(RequestDAO.instance().getRequests().contains(request));
-		//need get request
+		assertNotNull(RequestDAO.instance().getRequest(100));
+		RequestDAO.instance().deleteRequest(request);
+	}
+
+	public void testDeleteRequest() {
+		Request request = new Request(100, 3, "printer", "pending", 50.00);
+		RequestDAO.instance().saveRequest(request);
+		RequestDAO.instance().deleteRequest(request);
+		assertNull(RequestDAO.instance().getRequest(100));
 	}
 	
 	@Test
 	public void testUpdateRequest() {
-		Request request = new Request(100, 2, "printer", "pending", 25.00);
+		Request request = new Request(3, 2, "fax", "pending", 25.00);
 		RequestDAO.instance().updateRequest(request);
-		assertTrue(RequestDAO.instance().getRequests().contains(request));
-		//need get request
+		assertEquals(request.getReason(), RequestDAO.instance().getRequest(3).getReason());
 	}
 
 	@Test
+	public void testGetRequestsByEmployeeId() {
+		assertNotNull(RequestDAO.instance().getRequest(1));
+	}
+	
+	@Test
 	public void testGetRequests() {
 		assertNotNull(RequestDAO.instance().getRequests());
+	}
+	
+	@Test
+	public void testGetRequest() {
+		assertNotNull(RequestDAO.instance().getRequest(1));
 	}
 	
 	@Test
@@ -42,7 +58,18 @@ public class DAOtests {
 	
 	@Test
 	public void testSaveEmployee() {
-		fail("not implemented");
-		//need auto increment or delete
+		Employee employee = new Employee(3, false, "jim", "john", "jim@google.com", "goodpassword"); 
+		EmployeeDAO.instance().saveEmployee(employee);
+		assertNotNull(EmployeeDAO.instance().getEmployee("jim@google.com"));
+		EmployeeDAO.instance().deleteEmployee(employee);
 	}
+	
+	@Test
+	public void testDeleteEmployee() {
+		Employee employee = new Employee(3, false, "jim", "john", "jim@google.com", "goodpassword"); 
+		EmployeeDAO.instance().saveEmployee(employee);
+		EmployeeDAO.instance().deleteEmployee(employee);
+		assertNull(EmployeeDAO.instance().getEmployee("jim@google.com"));
+	}
+	
 }

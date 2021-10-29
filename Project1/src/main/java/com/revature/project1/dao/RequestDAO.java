@@ -88,4 +88,14 @@ public class RequestDAO {
 		session.close();
 	}
 	
+	public void deleteRequest(Request request) {
+		Session session = HibernateUtil.getFactory().openSession();
+		session.beginTransaction();
+		
+		session.delete(request);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
+	
 }

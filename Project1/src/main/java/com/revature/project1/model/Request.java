@@ -63,6 +63,12 @@ public class Request {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	@Override
+	public String toString() {
+		return "Request [id=" + id + ", employeeId=" + employeeId + ", reason=" + reason + ", status=" + status
+				+ ", amount=" + amount + "]";
+	}
 	
 	
 }
