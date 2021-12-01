@@ -21,10 +21,7 @@ To-do list:
 * Add Junit testing
 * Add Cucumber and Selenium testing
 ## Getting Started
-   -git clone 
+   -git clone https://github.com/brittonbaird/project1_Revature.git 
 ## Usage
-> Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-## Contributors
-> Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-## License
-This project uses the following license: [<license_name>](<link>).
+Use this application for simple reimbursement tracking between a manager a group of employees
+
