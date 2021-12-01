@@ -1,29 +1,27 @@
 # project1_Revature
 
->**PROJECT DESCRIPTION:** 
 ## Project Description
-
-Here goes your awesome project description!
+This application takes client user reimbursement requests and sets them to a pending status for a manager to accept or deny. Upon acceptance the user can see requests that have been approved or denied. 
 ## Technologies Used
-* Tech 1 - version 1.0
-* Tech 2 - version 2.0
-* Tech 3 - version 3.0
+* Java
+* Javascript
+* HTML
+* CSS
+* Hibernate
+* Javalin
+* Maven
 ## Features
 List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* Login checks if user is a manager or employee
+* Manager User Interface
+* Employee User Interface
+* Request accept deny system
+* Statistics for approved and denied reimbursements
 To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Add Junit testing
+* Add Cucumber and Selenium testing
 ## Getting Started
-   
-(include git clone command)
-(include all environment setup steps)
-> Be sure to include BOTH Windows and Unix command  
-> Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
-- All the `code` required to get started
-- Images of what it should look like
+   -git clone 
 ## Usage
 > Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
 ## Contributors
