@@ -11,7 +11,6 @@ This application takes client user reimbursement requests and sets them to a pen
 * Javalin
 * Maven
 ## Features
-List of features ready and TODOs for future development
 * Login checks if user is a manager or employee
 * Manager User Interface
 * Employee User Interface
