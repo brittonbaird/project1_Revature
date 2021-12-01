@@ -21,7 +21,8 @@ To-do list:
 * Add Junit testing
 * Add Cucumber and Selenium testing
 ## Getting Started
-   git clone https://github.com/brittonbaird/project1_Revature.git 
+* Create a new folder   
+* in that folder use git Bash and enter - git clone https://github.com/brittonbaird/project1_Revature.git 
 ## Usage
 Use this application for simple reimbursement tracking between a manager a group of employees
 
